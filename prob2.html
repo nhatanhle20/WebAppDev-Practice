@@ -1,0 +1,54 @@
+<html>
+
+<head>
+    <title>Login Form</title>
+</head>
+
+<body>
+    <div>
+        <form id="loginForm">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+            <div id="errorMessage" class="error"></div>
+
+            <button type="submit">Login</button>
+        </form>
+    </div>
+
+    <script>
+        // Function to validate the password
+        function validatePassword(password) {
+            const uppercaseRegex = /[A-Z]/; // Checks for at least one uppercase letter
+            const validCharsRegex = /^[a-z A-Z 0-9]*$/; // Ensures no special characters
+
+            // Check for uppercase letter and valid characters
+            if (!uppercaseRegex.test(password)) {
+                return "Password must contain at least one uppercase letter.";
+            }
+            if (!validCharsRegex.test(password)) {
+                return "Password must not contain special characters.";
+            }
+            return ""; 
+        }
+
+        // Form submit handler
+        document.getElementById("loginForm").addEventListener("submit", function (event) {
+            event.preventDefault(); // Prevent form submission
+
+            const password = document.getElementById("password").value;
+            const errorMessage = validatePassword(password);
+
+            if (errorMessage) {
+                document.getElementById("errorMessage").textContent = errorMessage;
+            } else {
+                document.getElementById("errorMessage").textContent = "";
+                alert("Login successful!"); // Successful login message
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,81 @@
+<html>
+
+<body>
+  <div>
+    <form id="inputForm">
+      <label for="truePositive">True Positive</label>
+      <input type="text" id="truePositive" name="truePositive" required>
+      <div class="error" id="truePositiveError"></div>
+
+      <label for="falseNegative">False Negative</label>
+      <input type="text" id="falseNegative" name="falseNegative" required>
+      <div class="error" id="falseNegativeError"></div>
+
+      <label for="falsePositive">False Positive</label>
+      <input type="text" id="falsePositive" name="falsePositive" required>
+      <div class="error" id="falsePositiveError"></div>
+
+      <label for="trueNegative">True Negative</label>
+      <input type="text" id="trueNegative" name="trueNegative" required>
+      <div class="error" id="trueNegativeError"></div>
+
+      <button type="button" id="submitButton">Submit</button>
+      <button type="button" id="displayButton">Display</button>
+    </form>
+  </div>
+
+  <script>
+    // Function to validate input
+    function validateInput(value) {
+      const numberRegex = /^[0-9]+$/; // Only allows positive integers
+      return numberRegex.test(value);
+    }
+
+    // Function to validate all inputs
+    function validateForm() {
+      let isValid = true;
+
+      // Clear previous error messages
+      document.querySelectorAll(".error").forEach((error) => {
+        error.textContent = "";
+      });
+
+      // Validate each input
+      ["truePositive", "falseNegative", "falsePositive", "trueNegative"].forEach((field) => {
+        const input = document.getElementById(field);
+        const errorElement = document.getElementById(field + "Error");
+        if (!validateInput(input.value)) {
+          isValid = false;
+          errorElement.textContent = "Invalid input: only non-negative numbers are allowed.";
+        }
+      });
+
+      return isValid;
+    }
+
+    // Handle Submit button click
+    document.getElementById("submitButton").addEventListener("click", function () {
+      if (validateForm()) {
+        alert("Form submitted successfully!");
+      }
+    });
+
+    // Handle Display button click
+    document.getElementById("displayButton").addEventListener("click", function () {
+      if (validateForm()) {
+        const truePositive = document.getElementById("truePositive").value;
+        const falseNegative = document.getElementById("falseNegative").value;
+        const falsePositive = document.getElementById("falsePositive").value;
+        const trueNegative = document.getElementById("trueNegative").value;
+
+      alert(`Values:
+      True Positive: ${truePositive}
+      False Negative: ${falseNegative}
+      False Positive: ${falsePositive}
+      True Negative: ${trueNegative}`);
+      }
+    });
+  </script>
+</body>
+
+</html>
